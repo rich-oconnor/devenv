@@ -1,4 +1,8 @@
 {
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/user/javascript-development-environment.git"
+      },
   "name": "devenv",
   "version": "1.0.0",
   "description": "js dev environment",
@@ -42,7 +46,8 @@
     "webpack": "^4.29.0",
     "webpack-dev-middleware": "^3.5.1",
     "webpack-hot-middleware": "^2.24.3",
-    "webpack-md5-hash": "0.0.6"
+    "webpack-md5-hash": "0.0.6",
+    "whatwg-fetch": "^3.0.0"
   },
   "dependencies": {}
 }
