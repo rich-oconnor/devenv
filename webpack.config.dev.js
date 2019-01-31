@@ -1,21 +1,21 @@
 import path from "path";
 
 export default {
-    mode: "development",
+    mode: "production",
     //debug: true,
     devtool: "inline-source-map",
     //noInfo: false,
     entry: [
-        path.resolve(__dirname, "src/index")
+        path.resolve(__dirname, "dist/index")
     ],
     target: "web",
     output: {
-        path: path.resolve(__dirname, "src"),
+        path: path.resolve(__dirname, "dist"),
         publicPath: "/",
         filename: "bundle.js"
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "src"),
+        contentBase: path.resolve(__dirname, "dist"),
         noInfo: false
     },
     plugins: [],
