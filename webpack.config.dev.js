@@ -1,8 +1,7 @@
 import path from "path";
-
+//console.log(__dirname);
 export default {
-    mode: "production",
-    //debug: true,
+    mode: "development",
     devtool: "inline-source-map",
     //noInfo: false,
     entry: [
@@ -16,13 +15,14 @@ export default {
     },
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
+        debug: true,
         noInfo: false
     },
     plugins: [],
     module: {
         rules: [
             {test: /\.js$/, exclude: /node_modules/, loaders: ["babel-loader"]},
-            {test: /\.css$/, loaders: ["style","css"]}
+            {test: /\.css$/, loaders: ["style-loader","css-loader"]}
         ]
     }
 }
