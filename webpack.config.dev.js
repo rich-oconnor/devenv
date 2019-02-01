@@ -5,16 +5,16 @@ export default {
     devtool: "inline-source-map",
     //noInfo: false,
     entry: [
-        path.resolve(__dirname, "dist/index")
+        path.resolve(__dirname, "src/index")
     ],
     target: "web",
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "src"),
         publicPath: "/",
         filename: "bundle.js"
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "dist"),
+        contentBase: path.resolve(__dirname, "src"),
         debug: true,
         noInfo: false
     },

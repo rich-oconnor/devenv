@@ -8,10 +8,11 @@
   "description": "js dev environment",
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
-    "start": "npm-run-all --parallel open:src lint:watch",
+    "start": "npm-run-all --parallel open:src lint:watch test:watch",
     "open:src": "babel-node buildScripts/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "esw webpack.config.* dist buildScripts --color",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch",
+    "lint": "esw webpack.config.* src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "localtunnel": "lt --port 3000"
   },
@@ -22,6 +23,7 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "chalk": "^2.4.2",
