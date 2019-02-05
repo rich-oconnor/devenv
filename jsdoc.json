@@ -1,0 +1,14 @@
+{
+    "source": {
+        "include": ["src","src/api"]
+    },
+    "opts": {
+        "rescurse": true,
+        "destination": "./docs/"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}
+

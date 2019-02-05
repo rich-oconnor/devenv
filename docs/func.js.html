@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: func.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: func.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * funcs module.
+ * @module src/func
+ * @since 1.0
+ * @todo document all functions
+ */
+
+
+/**
+ * Add 2 arguments to return result
+ *
+ * @export
+ * @param {number} first
+ * @param {number} second
+ * @returns {number} product
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function add(first,second) {
+    return first + second;
+}
+
+
+/**
+ * Subtract second argument from first
+ *
+ * @export
+ * @param {number} first - the first argument
+ * @param {number} second - the second srgument
+ * @returns {number} result - result of first - second
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function sub(first,second) {
+    return first - second;
+}
+
+/**
+ * Multiply two arguments
+ *
+ * @export
+ * @param {number} first - first number
+ * @param {number} second - second number
+ * @returns number
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function mult (first,second) {
+    return first * second;
+}
+
+/**
+ * returns a function that returns arg
+ *
+ * @export
+ * @param {*} arg
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function identityf(arg){
+    return function(){
+
+        return arg;
+    }
+}
+
+
+/**
+ * {@link addf}
+ * returns a function that receives a number as an argument and adds the argument of the initiaizer to the argument of the invocation
+ *
+ * @export
+ * @param {number} arg
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function addf(arg){
+    return function(arg2){
+        return arg + arg2;
+    }
+}
+
+/**
+ * returns a function that receives a function argument
+ *
+ * @export
+ * @param {function} func
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function liftf(func){
+    return function(first){
+        return function(second){
+            return func(first, second);
+        }
+    }
+}
+
+/**
+ * Curry-fy binary function with any number of arguments
+ *
+ * @export
+ * @param {function} binary
+ * @param {number} args
+ * @returns function
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ * @see {@link module:src/func.liftf liftf} for further information.
+ *
+ */
+export function curry(binary, ...args){
+    return function(...args2){
+        return liftf(binary)(...args)(...args2);
+    }
+}
+
+/**
+ * increment a value by 1
+ *
+ * @export
+ * @param {number} arg
+ * @returns {number}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ * @see {@link module:src/func.add add} for further information.
+ */
+export function inc(arg){
+    return add(arg,1);
+}
+
+/**
+ * increment a value by 1 (curry)
+ *
+ * @export
+ * @param {*} arg
+ * @returns {number}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ * @see {@link module:src/func.curry curry} for further information.
+ */
+export function inc2(arg){
+    return curry(inc,arg,1)();
+}
+
+
+/**
+ *
+ *
+ * @export
+ * @param {number} arg
+ * @returns {number}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ * @see {@link module:src/func.addf addf} for further information.
+ */
+export function inc3(arg){
+    return addf(arg)(1);
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {function} binary
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function twice(binary){
+    return function(arg){
+        return binary(arg,arg)
+    }
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {*} binary
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function reverse(binary){
+    return function(...arg){
+        return binary(...arg.reverse())
+    }
+}
+
+
+/**
+ *
+ *
+ * @export
+ * @param {function} func1
+ * @param {function} func2
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function composeu(func1, func2){
+    return function(...args){
+        return func2(func1(...args));
+    }
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {function} func1
+ * @param {function} func2
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function composeb(func1, func2){
+    return function(arg1, arg2, arg3){
+        return func2(func1(arg1,arg2), arg3);
+    }
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {function} func
+ * @param {function} count
+ * @returns {function}
+ * @author Rich O'Connor &lt;rich.oconnor@outlook.com>
+ */
+export function limit(func,count){
+    return function(...args){
+        if(count >= 1)
+        {
+            count -= 1;
+            return func(...args);
+        }
+        return undefined;
+    }
+}
+
+/**
+ * from Generator function
+ *
+ * @export
+ * @param {number} val -  the number to start our generator from
+ * @returns {function} - generator function
+ */
+export function from(val){
+    return function(){
+        var start = val;
+        val += 1;
+        return start;
+    }
+}
+
+/**
+ * return a generator that produces a value until end
+ *
+ * @export
+ * @param {function} gen - the generator
+ * @param {number} end - the limit
+ * @returns {function} - generator
+ */
+export function to(gen,end){
+    return function(){
+        var value = gen();
+        if(value &lt; end)
+        {
+            return value;
+        }
+        return undefined;
+    }
+}
+
+/**
+ * return a generator that will produce values from start - end
+ *
+ * @export
+ * @param {number} start
+ * @param {number} end
+ * @returns {function} - generator
+ */
+export function fromTo(start, end){
+    return to( from(start), end);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-src_api_baseUrl.html">src/api/baseUrl</a></li><li><a href="module-src_api_userApi.html">src/api/userApi</a></li><li><a href="module-src_func.html">src/func</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Feb 04 2019 12:26:02 GMT+1000 (Australian Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
