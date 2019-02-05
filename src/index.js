@@ -4,9 +4,13 @@ import {
     deleteUser
 } from "./api/userApi";
 
-//import {add, sub, mult, identityf, addf, liftf, curry} from "./func";
-import * as fun from "./func";
+//import * as fun from "./func";
+import {Drone} from "./HtmlHelper";
 
+let drone = new Drone({id: 1,rego: "DR001", numPropellors:4});
+
+console.log(drone);
+/*
 console.log(fun.add(1,3));
 console.log(fun.sub(1,3));
 console.log(fun.mult(2,3));
@@ -140,7 +144,8 @@ console.log(fun.arrayg(3)())
 console.log(fun.arrayg(3)(4)(5)())
 
 var sq = fun.continuez(Math.sqrt);
-console.log(sq(alert,81));
+console.log(sq(console.log,81));
+*/
 
 getUsers().then(result => {
     let userBody = "";
