@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: api/baseUrl.js</title>
+    <title>JSDoc: Class: Vehicle</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,46 +17,135 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: api/baseUrl.js</h1>
+    <h1 class="page-title">Class: Vehicle</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * api/BaseUrl module.
- * @module src/api/baseUrl
- * @since 1.0
- * @todo document all functions
- */
+        <h2><span class="attribs"><span class="type-signature"></span></span>Vehicle<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="Vehicle"><span class="type-signature"></span>new Vehicle<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
-/**
- * getBaseUrl function
- *
- * @export
- * @returns {function}
- */
-export default function getBaseUrl() {
-    return getQueryStringParameterByName("useMockApi") ? "http://localhost:3001/" : "/";
-}
+
+<div class="description">
+    Vehicle base class
+</div>
 
 
-function getQueryStringParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[[\]]/g, "\\$&amp;");
-    var regex = new RegExp("[?&amp;]" + name + "(=([^&amp;#]*)|&amp;|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Vehicle.js.html">Vehicle.js</a>, <a href="Vehicle.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: api/userApi.js</title>
+    <title>JSDoc: Source: Vehicle.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: api/userApi.js</h1>
+    <h1 class="page-title">Source: Vehicle.js</h1>
 
     
 
@@ -26,81 +26,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * api/userApi module.
- * @module src/api/userApi
- * @since 1.0
- * @todo document all functions
- */
-import "whatwg-fetch";
-
-import getBaseUrl from "./baseUrl";
-
-const baseUrl = getBaseUrl();
-
+            <pre class="prettyprint source linenums"><code>
 /**
- *
+ * Vehicle base class
  *
  * @export
- * @returns {array} fetched users
+ * @class Vehicle
  */
-export function getUsers() {
-    return get("users");
-}
-
-/**
- *
- *
- * @export
- * @param {*} id
- * @returns {object}
- */
-export function deleteUser(id) {
-    return del(`users/${id}`);
-}
-
-/**
- *
- *
- * @param {string} url
- * @returns {object}
- */
-function get(url){
-    return fetch(baseUrl + url).then(onSuccess, onError);
-}
-
-/**
- *
- *
- * @param {string} url
- * @returns {object}
- */
-function del(url) {
-    const request = new Request(baseUrl + url, {
-        method: "DELETE"
-    });
-
-    return fetch(request).then(onSuccess, onError);
-}
-
-/**
- *
- *
- * @param {object} response
- * @returns {object}
- */
-function onSuccess(response){
-    return response.json();
-}
-
-/**
- *
- *
- * @param {*} error
- * @returns {string}
- */
-function onError(error){
-    return console.log(error); // eslint-disable-line no-console
+export  class Vehicle{
+    constructor(spec = {}){
+        this.numWheels = spec.numWheels || 0;
+        this.rego = spec.rego || "";
+        this.id = 0;
+    }
 }
 </code></pre>
         </article>

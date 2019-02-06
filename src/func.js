@@ -435,3 +435,13 @@ export function continuez(any){
         return callback(any(...x));
     }
 }
+
+export function lit(){
+    return (x) => ({id:x});
+}
+
+export function repeat(func){
+    if(func() !== undefined){
+        return repeat(func);
+    }
+}

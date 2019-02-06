@@ -1,15 +1,52 @@
 /* eslint-disable no-console */
+import 'bootstrap';
+import './scss/index.scss';
+import './index.css';
+
 import {
     getUsers,
     deleteUser
 } from "./api/userApi";
 
+getUsers().then(result => {
+    let userBody = "";
+
+    result.forEach(user => {
+        userBody += `<tr>
+        <td> <a href="#" data-id="${user.id}" class="deleteUser">Delete</a></td>
+        <td>${user.id}</td>
+        <td>${user.firstName}</td>
+        <td>${user.lastName}</td>
+        <td>${user.email}</td>
+        </tr>`
+    });
+
+    global.document.getElementById("users").innerHTML = userBody;
+
+    const deleteLinks = global.document.getElementsByClassName("deleteUser");
+
+    Array.from(deleteLinks, link => {
+        link.onclick = function (event) {
+            const element = event.target;
+            event.preventDefault();
+            deleteUser(element.attributes["data-id"].value);
+            console.log("delete");
+            const row = element.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        };
+    });
+});
+
+
+
 //import * as fun from "./func";
-import {Drone} from "./HtmlHelper";
+//import {Drone} from "./HtmlHelper";
 
-let drone = new Drone({id: 1,rego: "DR001", numPropellors:4});
-
-console.log(drone);
+//let drone = new Drone({id: 1,rego: "DR001", numPropellors:4});
+//console.log(drone instanceof Drone);
+//
+//console.log(drone);
+//console.log(drone.makeStable());
 /*
 console.log(fun.add(1,3));
 console.log(fun.sub(1,3));
@@ -146,32 +183,4 @@ console.log(fun.arrayg(3)(4)(5)())
 var sq = fun.continuez(Math.sqrt);
 console.log(sq(console.log,81));
 */
-
-getUsers().then(result => {
-    let userBody = "";
-
-    result.forEach(user => {
-        userBody += `<tr>
-        <td> <a href="#" data-id="${user.id}" class="deleteUser">Delete</a></td>
-        <td>${user.id}</td>
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
-        <td>${user.email}</td>
-        </tr>`
-    });
-
-    global.document.getElementById("users").innerHTML = userBody;
-
-    const deleteLinks = global.document.getElementsByClassName("deleteUser");
-    Array.from(deleteLinks, link => {
-        link.onClick = function (event) {
-            const element = event.target;
-            event.preventDefault();
-            deleteUser(element.attributes["data-id"].value);
-            console.log("delete");
-            const row = element.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        };
-    });
-});
 
