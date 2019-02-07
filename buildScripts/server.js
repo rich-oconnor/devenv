@@ -12,9 +12,11 @@ const app = express();
 const compiler = webpack(config);
 
 app.use(require("webpack-dev-middleware")(compiler, {
-    noInfo: true,
+    noInfo: false,
     publicPath: config.output.publicPath
 }));
+
+app.use(express.static("bin"));
 
 app.get("/", function(req, res){
     res.sendFile(path.join(__dirname, "../src/index.html"));

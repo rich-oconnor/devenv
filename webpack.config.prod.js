@@ -11,6 +11,7 @@ export default {
     devtool: "source-map",
     //noInfo: false,
     entry: {
+        bootstrap: path.resolve(__dirname, "src/bootstrap"),
         vendor: path.resolve(__dirname, "src/vendor"),
         main: path.resolve(__dirname, "src/index")
     },
@@ -62,9 +63,14 @@ export default {
         rules: [
             {test: /\.js$/, exclude: /node_modules/, loaders: ["babel-loader"]},
             {test: /\.css$/, use: [
-                MiniCssExtractPlugin.loader,
-                "css-loader"
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: { minimize: true }
+                },
+                {
+                    loader: "css-loader"
+                }
               ]}
-        ]
-    }
+            ]
+        }
 }

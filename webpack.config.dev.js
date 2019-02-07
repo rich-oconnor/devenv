@@ -1,5 +1,6 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 //console.log(__dirname);
 export default {
@@ -7,13 +8,21 @@ export default {
     devtool: "inline-source-map",
     //noInfo: false,
     entry: {
+        fontawesome: path.resolve(__dirname, "src/fontawesome"),
+        bootstrap: path.resolve(__dirname, "src/bootstrap"),
+        vendor: path.resolve(__dirname, "src/vendor"),
         main: path.resolve(__dirname, "src/index")
+    },
+    optimization: {
+        splitChunks: {
+          chunks: "all"
+        }
     },
     target: "web",
     output: {
-        path: path.resolve(__dirname, "src"),
+        path: path.resolve(__dirname, "bin"),
         publicPath: "/",
-        filename: "bundle.js"
+        filename: "[name].js"
     },
     devServer: {
         contentBase: path.resolve(__dirname, "src"),
@@ -21,6 +30,12 @@ export default {
         noInfo: false
     },
     plugins: [
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+          }),
         new HtmlWebpackPlugin({
             template: "src/index.html",
             injext: true
@@ -29,35 +44,10 @@ export default {
     module: {
         rules: [
             {test: /\.js$/, exclude: /node_modules/, loaders: ["babel-loader"]},
-            {test: /\.css$/, loaders: ["style-loader","css-loader"]},
-            {
-                test: /\.(scss)$/,
-                use: [
-                        {
-                            // Adds CSS to the DOM by injecting a `<style>` tag
-                            loader: 'style-loader'
-                        },
-                        {
-                            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-                            loader: 'css-loader'
-                        },
-                        {
-                            // Loader for webpack to process CSS with PostCSS
-                            loader: 'postcss-loader',
-                            options: {
-                            plugins: function () {
-                                return [
-                                require('autoprefixer')
-                                ];
-                            }
-                        }
-                        },
-                        {
-                            // Loads a SASS/SCSS file and compiles it to CSS
-                            loader: 'sass-loader'
-                        }
-                    ]
-            }
+            {test: /\.css$/, use: [
+                MiniCssExtractPlugin.loader,
+                "css-loader"
+              ]}
         ]
     }
 }
